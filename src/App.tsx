@@ -1,28 +1,22 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import withRoot from './withRoot';
+import { Switch, Route, Redirect } from 'react-router';
+import Formik from './modules/FormikUsers/FormikContainer';
+import Login from './modules/Login';
+import Page from './modules/Page';
+import { BrowserRouter } from 'react-router-dom';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Redirect exact={true} from="/" to="/formik" />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/object" component={Page} />
+        <Route exact path="/formik" component={Formik} />
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
-export default App;
+export default withRoot(App);
