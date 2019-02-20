@@ -34,6 +34,7 @@ const Formik = ({ classes, values, errors }: Props & FormikProps<FormValues>) =>
   // const [ expanded, setExpanded] = React.useState<string | false>(false);
   // tslint:disable-next-line:no-console
   console.log('values', JSON.stringify(values, null, 2));
+  // tslint:disable-next-line:no-console
   console.log('errors', JSON.stringify(errors, null, 2));
   return (
     <Form style={{maxWidth: 800, margin: '20px auto'}}>
