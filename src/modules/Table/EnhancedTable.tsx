@@ -52,20 +52,18 @@ function desc<T>(a: T, b: T, orderBy: string) {
   return 0;
 }
 
-function getSorting<T>(order: SortDirection, orderBy: string) {
+function getSorting<T>(order: 'asc' | 'desc', orderBy: string) {
   return order === 'desc' ? 
          (a: T, b: T) => desc(a, b, orderBy) : 
          (a: T, b: T) => -desc(a, b, orderBy);
 }
-
-type SortDirection = 'asc' | 'desc';
 
 interface Props extends WithStyles<typeof styles> {
   data: any[];
   rows: TableRowCmp[];
 }
 interface State {
-  order: SortDirection;
+  order: 'asc' | 'desc';
   orderBy: string;
   fieldsValue: {[x: string]: string};
 }
