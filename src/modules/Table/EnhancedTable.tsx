@@ -12,11 +12,14 @@ import {
   Select,
   MenuItem,
   Tooltip,
-  TableSortLabel
+  TableSortLabel,
+  TablePagination
 } from  '@material-ui/core';
 
 import { TableRowCmp } from './models';
 import get from 'lodash/get';
+import TablePaginationActions from './TablePaginationActions';
+import { LabelDisplayedRowsArgs } from '@material-ui/core/TablePagination/TablePagination';
 
 const styles = createStyles({
   root: {
@@ -61,9 +64,12 @@ function getSorting<T>(order: 'asc' | 'desc', orderBy: string) {
 interface Props extends WithStyles<typeof styles> {
   data: any[];
   rows: TableRowCmp[];
+  rowsPerPage: number;
+  children?: (val: any[]) => JSX.Element;
 }
 interface State {
   order: 'asc' | 'desc';
+  page: number;
   orderBy: string;
   fieldsValue: {[x: string]: string};
 }
@@ -72,8 +78,13 @@ class TableCmp extends React.Component<Props, State> {
 
   state: State = {
     fieldsValue: {},
+    page: 0,
     order: 'asc',
     orderBy: '',
+  };
+
+  handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, page: number) => {
+    this.setState({ page });
   };
 
   handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -93,15 +104,15 @@ class TableCmp extends React.Component<Props, State> {
     const { fieldsValue } = this.state;
     const newArray = array.filter(i => {
       return Object.keys(fieldsValue).every(f => {
-        return !!get(i, f).toLowerCase().includes(fieldsValue[f].toLowerCase());
+        return fieldsValue[f] === 'All' ? true : !!get(i, f).toLowerCase().includes(fieldsValue[f].toLowerCase());
       });
     });
     return newArray;
   }
 
   render() {
-    const { classes, data, rows } = this.props;
-    const { order, orderBy } = this.state;
+    const { classes, data, rows, rowsPerPage } = this.props;
+    const { order, orderBy, page, fieldsValue } = this.state;
     const isShowFilter = rows.some(i => !!i.filter);
 
     const filterData = this.filteringTableData(stableSort(data, getSorting(order, orderBy)));
@@ -135,7 +146,7 @@ class TableCmp extends React.Component<Props, State> {
                   <TableCell key={row.id}>
                     {row.filter && row.filter === 'text' && (
                       <TextField
-                        value={this.state.fieldsValue[row.id] || ''}
+                        value={fieldsValue[row.id] || ''}
                         onChange={this.handleChange}
                         placeholder={row.label}
                         margin="normal"
@@ -149,31 +160,46 @@ class TableCmp extends React.Component<Props, State> {
                     )}
                     {row.filter && row.filter === 'select' && (
                       <Select
-                        value={this.state.fieldsValue[row.id] || 'All'}
+                        value={fieldsValue[row.id] || 'All'}
                         onChange={this.handleChange}
                         name={row.id}
                       >
-                        <MenuItem value="All">All</MenuItem>
+                        <MenuItem value={'All'}>All</MenuItem>
                       </Select>
                     )}
                   </TableCell>
                 ))}
               </TableRow>
             )}
-
           </TableHead>
           <TableBody>
-            {filterData.map(i => (
-              <TableRow key={i.id}>
-                {rows.map(row => (
-                  <TableCell key={row.id}>
-                    {row.getValue ? row.getValue(i) : get(i, row.id)}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
+            {this.props.children ? 
+                this.props.children(filterData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage))
+              :
+                filterData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(i => (
+                  <TableRow key={i.id}>
+                    {rows.map(row => (
+                      <TableCell key={row.id}>
+                        {row.getValue ? row.getValue(i) : get(i, row.id)}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+            }
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[]}
+          component={'div'}
+          count={filterData.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={this.handleChangePage}
+          labelDisplayedRows={({from, to, count}: LabelDisplayedRowsArgs) => (
+            <span style={{color: '#ddd'}}>{from}-{to} из {count}</span>
+          )}
+          ActionsComponent={TablePaginationActions}
+        />
       </Paper>
     );
   }
