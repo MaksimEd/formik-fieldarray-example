@@ -65,6 +65,7 @@ interface Props extends WithStyles<typeof styles> {
   data: any[];
   rows: TableRowCmp[];
   rowsPerPage: number;
+  isHoverRow?: boolean;
   children?: (val: any[]) => JSX.Element;
 }
 interface State {
@@ -88,17 +89,17 @@ class TableCmp extends React.Component<Props, State> {
   };
 
   handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const field = e.target.name;
-    const value = e.target.value;
     this.setState(pV => ({ 
-      fieldsValue: {...pV.fieldsValue, [field]: value}
+      fieldsValue: {...pV.fieldsValue, [e.target.name]: e.target.value}
     }) as any);
   }
 
-  createSortHandler = (orderBy: string) => () => this.setState(pv => ({ 
-    order: pv.order === 'asc' ? 'desc' : 'asc', 
-    orderBy
-  }));
+  createSortHandler = (orderBy: string) => () => {
+    this.setState(pv => ({ 
+      order: pv.order === 'asc' ? 'desc' : 'asc', 
+      orderBy
+    }));
+  }
 
   filteringTableData<T>(array: T[]) {
     const { fieldsValue } = this.state;
@@ -111,7 +112,14 @@ class TableCmp extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes, data, rows, rowsPerPage } = this.props;
+    const { 
+      classes, 
+      data, 
+      rows, 
+      rowsPerPage, 
+      isHoverRow 
+    } = this.props;
+
     const { order, orderBy, page, fieldsValue } = this.state;
     const isShowFilter = rows.some(i => !!i.filter);
 
@@ -177,7 +185,10 @@ class TableCmp extends React.Component<Props, State> {
                 this.props.children(filterData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage))
               :
                 filterData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(i => (
-                  <TableRow key={i.id}>
+                  <TableRow 
+                    key={i.id}
+                    hover={isHoverRow}
+                  >
                     {rows.map(row => (
                       <TableCell key={row.id}>
                         {row.getValue ? row.getValue(i) : get(i, row.id)}

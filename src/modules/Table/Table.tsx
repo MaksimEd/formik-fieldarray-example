@@ -20,6 +20,7 @@ const TableCmp = () => {
         rows={rows}
         data={fakeDataTable.list}
         rowsPerPage={20}
+        isHoverRow={true}
       />
   );
 };
