@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Switch, Route, Redirect } from 'react-router';
 
 import store from './store/store';
@@ -15,7 +15,7 @@ import MapboxDraw from './modules/MapboxDraw/MapboxDraw';
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Redirect exact={true} from="/" to="/mapboxDraw" />
           <Route exact path="/login" component={Login} />
@@ -24,7 +24,7 @@ const App = () => {
           <Route exact path="/table" component={Table} />
           <Route exact path="/mapboxDraw" component={MapboxDraw} />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   );
 };

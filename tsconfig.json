@@ -28,6 +28,6 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src", "types.d.ts", "node_modules/@mapbox/mapbox-gl-draw/types.d.ts"
+    "src", "./types/global.d.ts", "node_modules/@mapbox/mapbox-gl-draw/types.d.ts"
   ],
 }
