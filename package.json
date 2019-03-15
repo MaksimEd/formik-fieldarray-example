@@ -46,8 +46,10 @@
     "@types/react-redux": "^7.0.1",
     "@types/react-router-dom": "^4.3.1",
     "@types/redux-logger": "^3.0.7",
+    "eslint-plugin-react": "^7.12.4",
     "redux-logger": "^3.0.6",
     "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^3.6.0"
   }
 }

@@ -1,7 +1,10 @@
 {
     "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
-  "rules": {
-      "align": [
+    "rules": {
+      
+      "jsx-boolean-value": false,
+      "ordered-imports": false
+      /*"align": [
           true,
           "parameters",
           "arguments",
@@ -19,8 +22,8 @@
       "indent": [ true, "spaces" ],
       "interface-name": [true, "never-prefix"],
       "jsdoc-format": true,
-      "jsx-boolean-value": false,
-      "jsx-no-lambda": false,
+      "jsx-no-bind": true,
+      "jsx-no-lambda": true,
       "jsx-no-multiline-js": false,
       "label-position": true,
       "max-line-length": [ true, 120 ],
@@ -99,7 +102,7 @@
           "check-separator",
           "check-type",
           "check-typecast"
-      ]
+      ]*/
   },
   "linterOptions": {
     "exclude": [
