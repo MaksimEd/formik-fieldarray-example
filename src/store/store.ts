@@ -23,4 +23,5 @@ if ((module as any).hot) {
   });
 }
 
+export type AppReduxState = ReturnType<typeof rootReducer>;
 export default store; 

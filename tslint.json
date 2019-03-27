@@ -3,7 +3,10 @@
     "rules": {
       
       "jsx-boolean-value": false,
-      "ordered-imports": false
+      "ordered-imports": false,
+      "no-consecutive-blank-lines": true,
+      "jsx-equals-spacing": [true, "never"],
+      "interface-name": false
       /*"align": [
           true,
           "parameters",

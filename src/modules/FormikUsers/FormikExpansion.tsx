@@ -30,6 +30,7 @@ const FormikExpansion = ({classes, user, index, arrayUsers}: Props) => {
         <div style={{marginLeft: 50}}>
           <FieldArray
             name={`users.${index}.address`}
+            // tslint:disable-next-line:jsx-no-lambda
             render={arrayUser => (
               <div>
                 {user.address && user.address.length > 0 ? (

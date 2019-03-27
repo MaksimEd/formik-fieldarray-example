@@ -1,11 +1,24 @@
 
-const initialState = {
+interface Type {
+  isAuthorization: boolean; 
+  isLoad: boolean; 
+  token: string;
+  errorMessage: { 
+    email: string;
+    password: string;
+  }
+}
+
+const initialState: Type = {
+  errorMessage: { 
+    email: '', 
+    password: '' 
+  },
   isAuthorization: false, 
   isLoad: false, 
-  token: '',
-  errorMessage: { email: '', password: '' }
+  token: ''
 };
-export default (state = initialState, action: { type: string, payload: any}) => {
+export default (state = initialState, action: { type: string, payload: any}): Type => {
   switch (action.type) {
     case 'AUTHORIZATION_REQUEST_START':
       return { ...initialState, isLoad: true };
