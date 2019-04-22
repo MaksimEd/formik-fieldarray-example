@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Map } from 'mapbox-gl';
-import { withMap } from 'react-mapbox-gl/lib-esm/context';
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
@@ -354,4 +353,4 @@ class MapboxDrawControls extends React.PureComponent<Props> {
   }
 }
 
-export default withStyles(styles)(withMap(MapboxDrawControls));
+export default withStyles(styles)(MapboxDrawControls);

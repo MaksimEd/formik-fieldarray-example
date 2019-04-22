@@ -4,9 +4,14 @@
       
       "jsx-boolean-value": false,
       "ordered-imports": false,
-      "no-consecutive-blank-lines": true,
       "jsx-equals-spacing": [true, "never"],
-      "interface-name": false
+      "interface-name": false,
+      
+      "jsdoc-format": true,
+      "jsx-no-bind": true,
+      "jsx-no-lambda": true,
+      "member-access": false,
+      "object-literal-sort-keys": false
       /*"align": [
           true,
           "parameters",
@@ -23,7 +28,6 @@
       "eofline": false,
       "forin": true,
       "indent": [ true, "spaces" ],
-      "interface-name": [true, "never-prefix"],
       "jsdoc-format": true,
       "jsx-no-bind": true,
       "jsx-no-lambda": true,

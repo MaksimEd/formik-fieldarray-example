@@ -8,5 +8,5 @@ describe('fetch', () => {
     const d = await res.json();
     expect(data).toEqual(d);
     fetchMock.restore();
-  })
+  });
 });

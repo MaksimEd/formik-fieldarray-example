@@ -12,22 +12,25 @@ import Page from './modules/Page';
 import Table from './modules/Table/Table';
 import MapboxDraw from './modules/MapboxDraw/MapboxDraw';
 import Componnents from './modules/Components';
+import SentryReport from './modules/Sentry';
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <HashRouter>
-        <Switch>
-          <Redirect exact={true} from="/" to="/components" />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/object" component={Page} />
-          <Route exact path="/formik" component={Formik} />
-          <Route exact path="/table" component={Table} />
-          <Route exact path="/mapboxDraw" component={MapboxDraw} />
-          <Route exact path="/components" component={Componnents} />
-        </Switch>
-      </HashRouter>
-    </Provider>
+    <SentryReport>
+      <Provider store={store}>
+        <HashRouter>
+          <Switch>
+            <Redirect exact={true} from="/" to="/mapboxDraw" />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/object" component={Page} />
+            <Route exact path="/formik" component={Formik} />
+            <Route exact path="/table" component={Table} />
+            <Route exact path="/mapboxDraw" component={MapboxDraw} />
+            <Route exact path="/components" component={Componnents} />
+          </Switch>
+        </HashRouter>
+      </Provider>
+    </SentryReport>
   );
 };
 
