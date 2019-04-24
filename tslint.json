@@ -11,7 +11,25 @@
       "jsx-no-bind": true,
       "jsx-no-lambda": true,
       "member-access": false,
-      "object-literal-sort-keys": false
+      "object-literal-sort-keys": false,
+      "indent": [ true, "spaces" ],
+      "whitespace": [
+        true,
+        "check-branch",
+        "check-decl",
+        "check-module",
+        "check-operator",
+        "check-separator",
+        "check-type",
+        "check-typecast"
+      ],
+      "one-line": [
+        true,
+        "check-catch",
+        "check-else",
+        "check-open-brace",
+        "check-whitespace"
+      ]
       /*"align": [
           true,
           "parameters",
@@ -27,10 +45,6 @@
       "curly": true,
       "eofline": false,
       "forin": true,
-      "indent": [ true, "spaces" ],
-      "jsdoc-format": true,
-      "jsx-no-bind": true,
-      "jsx-no-lambda": true,
       "jsx-no-multiline-js": false,
       "label-position": true,
       "max-line-length": [ true, 120 ],
@@ -69,13 +83,6 @@
       "no-trailing-whitespace": false,
       "no-unused-expression": true,
       "no-use-before-declare": false,
-      "one-line": [
-          true,
-          "check-catch",
-          "check-else",
-          "check-open-brace",
-          "check-whitespace"
-      ],
       "quotemark": [true, "single", "jsx-double"],
       "radix": true,
       "semicolon": [true, "always", "ignore-bound-class-methods"],
@@ -100,16 +107,7 @@
           }
       ],
       "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
-      "whitespace": [
-          true,
-          "check-branch",
-          "check-decl",
-          "check-module",
-          "check-operator",
-          "check-separator",
-          "check-type",
-          "check-typecast"
-      ]*/
+*/
   },
   "linterOptions": {
     "exclude": [
