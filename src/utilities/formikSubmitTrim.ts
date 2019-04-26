@@ -1,5 +1,3 @@
-const isEmpty = (value: string) => value.trim().length === 0;
-
 export function formikSubmitTrim<T>(values: T): {value: T, error: object} {
   // return Object.keys(values).reduce(
   //   (accum, curr) => (
@@ -11,39 +9,46 @@ export function formikSubmitTrim<T>(values: T): {value: T, error: object} {
   //   ), 
   //   {} as T
   // );
-  const newError = {};
-  const newValues = {} as T;
-  const keys = Object.keys(values);
-  // tslint:disable-next-line:prefer-for-of
-  for (let index = 0; index < keys.length; index++) {
-    const element = keys[index];
-    if (typeof values[element] === 'string') {
-      newValues[element] = values[element].trim();
+  let newError: any;
+  let newValues: any;
+  if (typeof values === 'string') {
+    newValues = values.trim();
 
-      if (isEmpty(values[element].trim())) {
-        newError[element] = 'Request';
-      }
-    } else if (Array.isArray(values[element])) {
-      const valArray = [];
-      for (let index2 = 0; index2 < values[element].length; index2++) {
-        const {value, error} = formikSubmitTrim(values[element][index2]);
-        if (Object.keys(error).length) {
-          if (!newError[element]) {
-            newError[element] = [];
-          }
-          newError[element][index2] = error;
-        }
-        valArray[index2] = value;
-      }
-      newValues[element] = valArray;
-    } else {
-      newValues[element] = values[element];
+    if (!newValues.length) {
+      newError = 'Request';
     }
-    if (Array.isArray(newError[element])) {
-      const error = values[element].map((_: string, n: number) => !newError[element][n] ? null : newError[element][n]);
-      newError[element] = error;
+  } else if (Array.isArray(values)) {
+    const valArray = [];
+    const errArray: object[] = [];
+    for (let index2 = 0; index2 < values.length; index2++) {
+      const {value, error} = formikSubmitTrim(values[index2]);
+      valArray[index2] = value;
+      if (error && Object.keys(error).length) {
+        errArray[index2] = error;
+      }
     }
+    newValues = valArray;
+    if (errArray.length) {
+      newError = values.map((_: any, n: number) => !!errArray[n] && errArray[n] || null);
+    }
+  } else if (typeof values === 'object') {
+    newError = {};
+    newValues = {};
+    const keys = Object.keys(values);
+    // tslint:disable-next-line:prefer-for-of
+    for (let index = 0; index < keys.length; index++) {
+      const element = keys[index];
+      const valueElement = values[element];
+
+      const {value, error} = formikSubmitTrim(valueElement);
+      newValues[element] = value;          
+      if (error) {
+        newError[element] = error;
+      }
+    }
+  } else {
+    newValues = values;
   }
-  
+
   return { value: newValues, error: newError };
 }
