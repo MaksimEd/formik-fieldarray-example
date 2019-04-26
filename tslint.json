@@ -29,7 +29,8 @@
         "check-else",
         "check-open-brace",
         "check-whitespace"
-      ]
+      ],
+      "max-line-length": [ true, 120 ]
       /*"align": [
           true,
           "parameters",

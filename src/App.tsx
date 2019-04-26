@@ -12,15 +12,15 @@ import Page from './modules/Page';
 import Table from './modules/Table/Table';
 import MapboxDraw from './modules/MapboxDraw/MapboxDraw';
 import Componnents from './modules/Components';
-import SentryReport from './modules/Sentry';
+// import SentryReport from './modules/Sentry';
 
 const App = () => {
   return (
-    <SentryReport>
+    // <SentryReport>
       <Provider store={store}>
         <HashRouter>
           <Switch>
-            <Redirect exact={true} from="/" to="/mapboxDraw" />
+            <Redirect exact={true} from="/" to="/formik" />
             <Route exact path="/login" component={Login} />
             <Route exact path="/object" component={Page} />
             <Route exact path="/formik" component={Formik} />
@@ -30,7 +30,7 @@ const App = () => {
           </Switch>
         </HashRouter>
       </Provider>
-    </SentryReport>
+    // </SentryReport>
   );
 };
 

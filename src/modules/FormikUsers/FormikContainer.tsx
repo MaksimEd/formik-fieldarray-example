@@ -5,6 +5,7 @@ import withStyles, { WithStyles, StyleRulesCallback } from '@material-ui/core/st
 import { compose } from 'redux';
 import FormikExpansion from './FormikExpansion';
 import * as yup from 'yup';
+import { formikSubmitTrim } from '../../utilities/formikSubmitTrim';
 
 const styles: StyleRulesCallback = theme => ({
   root: {
@@ -22,10 +23,10 @@ const styles: StyleRulesCallback = theme => ({
 });
 
 interface FormValues {
-  users: {
+  users: Array<{
     tel: string[];
     address: string[];
-  }[];
+  }>;
 }
 
 interface Props extends WithStyles<typeof styles> { }
@@ -40,6 +41,7 @@ const Formik = ({ classes, values, errors }: Props & FormikProps<FormValues>) =>
     <Form style={{maxWidth: 800, margin: '20px auto'}}>
       <FieldArray
         name="users"
+        // tslint:disable-next-line:jsx-no-lambda
         render={arrayUsers => (
           <>
             {values.users && values.users.map((user, index) => (
@@ -68,8 +70,7 @@ const schema = yup.object().shape({
   .min(3, 'Minimum of 3 friends'),
 });
 
-export default compose(
-  withStyles(styles),
+export default compose<any>(
   withFormik<{}, FormValues>({
     mapPropsToValues: () => ({ users: [] }),
 
@@ -77,10 +78,11 @@ export default compose(
     validationSchema: schema,
 
     handleSubmit: (values, { setSubmitting }) => {
+      const val = formikSubmitTrim<FormValues>(values);
       setTimeout(
         () => {
           // tslint:disable-next-line:no-console
-          console.log('submit', values);
+          console.log('submit', val);
           setSubmitting(false);
         }, 
         1000
@@ -88,5 +90,6 @@ export default compose(
     },
 
     displayName: 'BasicFormFormik',
-  })
-)(Formik) as any;
+  }),
+  withStyles(styles)
+)(Formik);
