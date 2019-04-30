@@ -6,7 +6,7 @@ export function formikSubmitTrim<T>(values: T): {value: T, error: object} {
   //     ) : (
   //       {...accum, [curr]: values[curr]}
   //     )
-  //   ), 
+  //   ),
   //   {} as T
   // );
   let newError: any;
@@ -20,8 +20,8 @@ export function formikSubmitTrim<T>(values: T): {value: T, error: object} {
   } else if (Array.isArray(values)) {
     const valArray = [];
     const errArray: object[] = [];
-    for (let index2 = 0; index2 < values.length; index2++) {
-      const {value, error} = formikSubmitTrim(values[index2]);
+    for (let index2 = 0; index2 < values.length; index2 += 1) {
+      const { value, error } = formikSubmitTrim(values[index2]);
       valArray[index2] = value;
       if (error && Object.keys(error).length) {
         errArray[index2] = error;
@@ -36,12 +36,12 @@ export function formikSubmitTrim<T>(values: T): {value: T, error: object} {
     newValues = {};
     const keys = Object.keys(values);
     // tslint:disable-next-line:prefer-for-of
-    for (let index = 0; index < keys.length; index++) {
+    for (let index = 0; index < keys.length; index += 1) {
       const element = keys[index];
       const valueElement = values[element];
 
-      const {value, error} = formikSubmitTrim(valueElement);
-      newValues[element] = value;          
+      const { value, error } = formikSubmitTrim(valueElement);
+      newValues[element] = value;
       if (error) {
         newError[element] = error;
       }
