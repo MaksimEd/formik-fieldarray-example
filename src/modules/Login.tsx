@@ -11,22 +11,22 @@ interface FormValues {
   password: string;
 }
 
-const Login = ({ 
+const Login = ({
   values,
-  touched, 
-  errors, 
+  touched,
+  errors,
   isSubmitting,
   handleChange,
-  handleBlur
-  }: FormikProps<FormValues>) => {
+  handleBlur,
+}: FormikProps<FormValues>) => {
   const [showPassword, toggleShowPassword] = React.useState(false);
   return (
     <div>
       <Link to="/login" children={<div>login</div>} />
       <Link to="/object"  children={<div>object</div>} />
-      <Form style={{maxWidth: 400, margin: '20px auto'}}>
+      <Form style={{ maxWidth: 400, margin: '20px auto' }}>
         <TextField
-          style={{marginBottom: 10}}
+          style={{ marginBottom: 10 }}
           fullWidth
           error={touched.email && !!errors.email}
           variant={'outlined'}
@@ -39,7 +39,7 @@ const Login = ({
           helperText={touched.email && errors.email && errors.email || '\u00A0'}
         />
         <TextField
-          style={{marginBottom: 10}}
+          style={{ marginBottom: 10 }}
           fullWidth
           error={touched.password && !!errors.password}
           variant={'outlined'}
@@ -72,7 +72,7 @@ export default withFormik<{}, FormValues>({
   mapPropsToValues: () => ({ email: '', password: '' }),
 
   // Custom sync validation
-  validate: values => {
+  validate: (values) => {
     const errors: FormikErrors<FormValues>  = {};
 
     if (!values.email) {
@@ -92,7 +92,7 @@ export default withFormik<{}, FormValues>({
         // tslint:disable-next-line:no-console
         console.log(values);
         setSubmitting(false);
-      }, 
+      },
       1000
     );
   },

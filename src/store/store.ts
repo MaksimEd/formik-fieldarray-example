@@ -1,17 +1,17 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+import reduxThunk from 'redux-thunk';
+import reduxLogger from 'redux-logger';
 import { rootReducer } from './reducers';
 
 const composeEnhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 let store: any;
 if (process.env.NODE_ENV !== 'production') {
   store = createStore(
-    rootReducer, 
-    composeEnhancer(applyMiddleware(thunk, logger))
+    rootReducer,
+    composeEnhancer(applyMiddleware(reduxThunk, reduxLogger))
   );
 } else {
-  store = createStore(rootReducer, applyMiddleware(thunk));
+  store = createStore(rootReducer, applyMiddleware(reduxThunk));
 }
 
 if ((module as any).hot) {
@@ -24,4 +24,4 @@ if ((module as any).hot) {
 }
 
 export type AppReduxState = ReturnType<typeof rootReducer>;
-export default store; 
+export default store;
